@@ -1,0 +1,57 @@
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { palette } from "../../lib/styles/palette";
+import Button from "./Button";
+import Responsive from "./Responsive";
+
+const HeaderBlock = styled.div`
+  position: fixed;
+  width: 100%;
+  background: white;
+  border-bottom: 1px solid ${palette.colors.gray[50]};
+`;
+
+const Wrapper = styled(Responsive)`
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .logo {
+    font-family: 'Patua One', cursive;
+    font-size: 1.2rem;
+  }
+
+  .right {
+    font-family: 'Patua One', cursive;
+    font-size: 1rem;
+  }
+`;
+
+const UserInfo = styled.div`
+  font-weight: 800;
+`;
+
+const Header = ({user, onLogout}) => {
+  return (
+    <>
+      <HeaderBlock>
+        <Wrapper>
+          <Link className="logo">BUYCIRCLE</Link>
+          {user ? (
+            <div className="right">
+              <UserInfo>{user.username}</UserInfo>
+              <Button onClick={onLogout}>LOGOUT</Button>
+            </div>
+          ) : (
+            <div className="right">
+              <Button to="/login">LOGIN/REGISTER</Button>
+            </div>
+          )}
+        </Wrapper>
+      </HeaderBlock>
+    </>
+  );
+};
+
+export default Header;

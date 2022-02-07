@@ -1,9 +1,13 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema } from 'mongoose';
+import Item from './item';
+
+const ItemSchema = Item.schema;
 
 // 스키마 지정
 // 이미지 파일 저장 기능 추가해야 함
 const PostSchema = new Schema({
-  title: String,
+  // title: String,
+  image: Buffer,
   body: String,
   tags: [String],
   publishedDate: {
@@ -14,8 +18,9 @@ const PostSchema = new Schema({
     _id: mongoose.Types.ObjectId,
     username: String,
   },
+  item: [ItemSchema],
 });
 
 // 모델 생성
-const Post = mongoose.model("Post", PostSchema);
+const Post = mongoose.model('Post', PostSchema);
 export default Post;

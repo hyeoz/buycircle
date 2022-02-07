@@ -11,17 +11,19 @@ POST /api/auth/register
 export const register = async (ctx) => {
   // 검증
   const schema = Joi.object().keys({
-    username: Joi.string().alphanum().min(5).max(20).required(), // 아이디는 알파벳, 숫자, 5~20 글자 사이
+    username: Joi.string().alphanum().min(3).max(20).required(), // 아이디는 알파벳, 숫자, 5~20 글자 사이
     password: Joi.string().required(),
   });
-  const validResult = schema.validate(ctx.requset.body);
+
+  const validResult = schema.validate(ctx.request.body);
+
   if (validResult.error) {
     ctx.status = 400;
     ctx.body = validResult.error;
     return;
   }
   // 검증 후 회원가입 과정 진행
-  const { username, password } = ctx.requset.body;
+  const { username, password } = ctx.request.body;
   // 아이디 중복 확인
   try {
     const exist = await User.findByUsername(username); // 스태틱 메서드로 models/user 에서 정의함
@@ -69,7 +71,8 @@ export const login = async (ctx) => {
       ctx.status = 401;
       return;
     }
-    const validPassword = await User.checkPassword(password); // 인스턴스 메서드로 models/user 에서 정의함
+    
+    const validPassword = await user.checkPassword(password); // 인스턴스 메서드로 models/user 에서 정의함
     // 잘못된 비밀번호를 입력했을 때
     if (!validPassword) {
       ctx.status = 401;

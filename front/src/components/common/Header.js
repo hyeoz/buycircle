@@ -7,7 +7,7 @@ import Responsive from "./Responsive";
 const HeaderBlock = styled.div`
   position: fixed;
   width: 100%;
-  background: white;
+  background: ${palette.colors.gray[50]};
   border-bottom: 1px solid ${palette.colors.gray[50]};
 `;
 
@@ -25,6 +25,8 @@ const Wrapper = styled(Responsive)`
   .right {
     font-family: 'Patua One', cursive;
     font-size: 1rem;
+    display: flex;
+    align-items: center;
   }
 `;
 
@@ -33,14 +35,15 @@ const UserInfo = styled.div`
 `;
 
 const Header = ({user, onLogout}) => {
+  // console.log(user);
   return (
     <>
       <HeaderBlock>
         <Wrapper>
-          <Link className="logo">BUYCIRCLE</Link>
+          <Link to="/" className="logo">BUYCIRCLE</Link>
           {user ? (
             <div className="right">
-              <UserInfo>{user.username}</UserInfo>
+              <UserInfo style={{marginRight: '1rem'}}>{user.username}</UserInfo>
               <Button onClick={onLogout}>LOGOUT</Button>
             </div>
           ) : (

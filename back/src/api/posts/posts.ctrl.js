@@ -1,6 +1,6 @@
-import Post from "../../models/post";
-import Joi from "joi";
-import mongoose from "mongoose";
+import Post from '../../models/post';
+import Joi from 'joi';
+import mongoose from 'mongoose';
 
 /* 몽고디비에서 생성되는 ObjectId 검증용 */
 const { ObjectId } = mongoose.Types;
@@ -24,9 +24,11 @@ export const checkOwnPost = (ctx, next) => {
 export const write = async (ctx) => {
   // 생성하는 객체가 다음 필드를 가지고 있는지 검증
   const schema = Joi.object().keys({
-    title: Joi.string().required(),
+    // title: Joi.string().required(),
+    // image: Joi.buffer(),
     body: Joi.string().required(),
     tags: Joi.array().items(Joi.string()),
+    // 서브스키마에 대한 유효성 검사는 안해도 되는건지?
   });
   const validResult = schema.validate(ctx.request.body);
   // 검증 실패인 경우 에러 처리
@@ -37,12 +39,14 @@ export const write = async (ctx) => {
   }
 
   // 검증 통과한 본문 저장하기
-  const { title, body, tags } = ctx.request.body;
+  const { image, body, tags, item } = ctx.request.body;
   const post = new Post({
-    title,
+    image,
     body,
     tags,
+    item,
   });
+
   try {
     await post.save();
     ctx.body = post;
@@ -53,13 +57,14 @@ export const write = async (ctx) => {
   }
 };
 
-/* GET /api/posts */
+/* GET /api/posts 
+이미지 불러오는 과정 추가하기 */
 export const list = async (ctx) => {
   // 요청 주소 뒤에 붙는 parameter 와 query 구조분해할당
   const { tag, username } = ctx.query;
   // tag 나 parameter 가 있으면 넣고, 없으면 넣지않음
   const query = {
-    ...(username ? { "user.username": username } : {}),
+    ...(username ? { 'user.username': username } : {}),
     ...(tag ? { tags: tag } : {}),
   };
   // 페이지네이션을 위한 페이지 생성
@@ -80,13 +85,14 @@ export const list = async (ctx) => {
     // 쿼리로 포스트 조회한 후 갯수 세기
     const postCount = await Post.countDocuments(query).exec();
     // 헤더에 Last-Page 로 마지막 페이지 값 정보 넣기
-    ctx.set("Last-Page", Math.ceil(postCount / 10));
+    ctx.set('Last-Page', Math.ceil(postCount / 10));
 
     // 리스트에서 포스트 확인할 때 본문 내용 200자까지만 보이도록
     ctx.body = posts
       .map((post) => post.toJSON())
       .map((post) => ({
         ...post,
+        image: Buffer.from(post.image, "base64"),
         body:
           post.body.length < 200
             ? post.body
@@ -99,7 +105,6 @@ export const list = async (ctx) => {
 
 /* 특정 포스트 조회
 GET /api/posts/:id */
-/* 각 아이디별 포스트를 가져오는 모든 라우터에 공통으로 넣기 위해 분리 */
 export const getPostById = async (ctx, next) => {
   const { id } = ctx.params;
   if (!ObjectId.isValid(id)) {
@@ -113,7 +118,13 @@ export const getPostById = async (ctx, next) => {
       ctx.status = 404;
       return;
     }
-    ctx.state.post = post;
+
+    ctx.state.post = {
+      ...post,
+      // 각 아이디별 포스트를 가져오는 모든 라우터에 공통으로 넣기 위해 분리
+      image: Buffer.from(post.image, "base64"),
+    };
+    // console.log(ctx.state.post);
     return next();
   } catch (e) {
     ctx.throw(500, e);
@@ -152,7 +163,8 @@ export const update = async (ctx) => {
   const { id } = ctx.params;
   // 수정이기 때문에 포스트 작성에서 필수로 두었던 조건들을 required 로 두지않아도 됨
   const schema = Joi.object().keys({
-    title: Joi.string(),
+    // title: Joi.string(),
+    image: Joi.buffer(),
     body: Joi.string(),
     tags: Joi.array().items(Joi.string()),
   });

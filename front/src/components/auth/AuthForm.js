@@ -69,7 +69,7 @@ const AuthForm = ({type, form, onChange, onSubmit, error}) => {
           <StyledInput autoComplete="new-password" name="passwordConfirm" placeholder="비밀번호 확인" type="password" onChange={onChange} value={form.passwordConfirm} />
         )}
         {error && <ErrorMessage>{error}</ErrorMessage>}
-        <ButtonWithMarginTop usage>{text}</ButtonWithMarginTop>
+        <ButtonWithMarginTop orange fullWidth>{text}</ButtonWithMarginTop>
       </form>
       <Footer>
         {type === 'login' ? ( 

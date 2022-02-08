@@ -18,16 +18,23 @@ const buttonStyle = css`
     background: ${palette.colors.yellow[400]};
   }
 
-  ${props => props.usage && css`
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-    width: 100%;
-    font-size: 1.125rem;
-    background: ${palette.colors.orange[300]};
-    &:hover {
-      background: ${palette.colors.orange[400]};
-    }
-  `}
+  ${props =>
+    props.fullWidth &&
+    css`
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+      width: 100%;
+      font-size: 1.125rem;
+    `}
+
+  ${props => 
+    props.orange &&
+    css`
+      background: ${palette.colors.orange[300]};
+      &:hover {
+        background: ${palette.colors.orange[400]};
+      }
+    `}
 
   &:disabled {
     background: ${palette.colors.gray[200]};
@@ -46,7 +53,7 @@ const StyledLink = styled(Link)`
 
 const Button = (props) => {
   return props.to ? (
-    <StyledLink {...props} usage={props.usage ? 1 : 0} />
+    <StyledLink {...props} orange={props.orange ? 1 : 0} />
   ) : (
     <StyledButton {...props} />
   )

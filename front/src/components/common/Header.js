@@ -45,6 +45,7 @@ const Header = ({user, onLogout}) => {
             <div className="right">
               <UserInfo style={{marginRight: '1rem'}}>{user.username}</UserInfo>
               <Button onClick={onLogout}>LOGOUT</Button>
+              <Button to="/write" orange style={{marginLeft: '0.5rem'}}>새 글 작성하기</Button>
             </div>
           ) : (
             <div className="right">

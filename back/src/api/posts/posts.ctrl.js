@@ -17,7 +17,9 @@ export const checkOwnPost = (ctx, next) => {
 
 /* POST /api/posts
 {
-  title: 제목,
+  method: 결제방법,
+  name: 구매항목,
+  price: 가격,
   body: 내용,
   tags: 태그
 } */
@@ -26,6 +28,9 @@ export const write = async (ctx) => {
   const schema = Joi.object().keys({
     // title: Joi.string().required(),
     // image: Joi.buffer(),
+    method: Joi.string(),
+    name: Joi.string().required(),
+    price: Joi.string().required(),
     body: Joi.string().required(),
     tags: Joi.array().items(Joi.string()),
     // 서브스키마에 대한 유효성 검사는 안해도 되는건지?
@@ -39,12 +44,16 @@ export const write = async (ctx) => {
   }
 
   // 검증 통과한 본문 저장하기
-  const { image, body, tags, item } = ctx.request.body;
+  const { image, method, name, price, body, tags, item } = ctx.request.body;
   const post = new Post({
     image,
+    method, 
+    name,
+    price,
     body,
     tags,
     item,
+    user: ctx.state.user,
   });
 
   try {
@@ -92,7 +101,7 @@ export const list = async (ctx) => {
       .map((post) => post.toJSON())
       .map((post) => ({
         ...post,
-        image: Buffer.from(post.image, "base64"),
+        // image: Buffer.from(post.image, "base64"),
         body:
           post.body.length < 200
             ? post.body
@@ -122,7 +131,7 @@ export const getPostById = async (ctx, next) => {
     ctx.state.post = {
       ...post,
       // 각 아이디별 포스트를 가져오는 모든 라우터에 공통으로 넣기 위해 분리
-      image: Buffer.from(post.image, "base64"),
+      // image: Buffer.from(post.image, "base64"),
     };
     // console.log(ctx.state.post);
     return next();
@@ -132,7 +141,7 @@ export const getPostById = async (ctx, next) => {
 };
 /* 포스트 읽어오기는 분리된 라우트 활용하여 그대로 넣어주기만 하면 됨 */
 export const read = (ctx) => {
-  ctx.body = ctx.state.body;
+  ctx.body = ctx.state.post;
 };
 
 /* 포스트 지우기

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled,{css} from "styled-components";
 import { palette } from "../../lib/styles/palette";
 
 const TagsBlock = styled.div`
@@ -13,11 +13,16 @@ const TagsBlock = styled.div`
       color: ${palette.colors.orange[700]}
     }
   }
+  /* 가운데 정렬 파라미터 */
+  ${(props) => props.center &&
+  css`
+    text-align: center;
+  `}
 `;
 
-const Tags = ({tags}) => {
+const Tags = ({tags, center}) => {
   return (
-    <TagsBlock>
+    <TagsBlock center={center}>
       {tags.map((tag) => (
         <Link className="tag" to={`/?tag=${tag}`} key={tag}>
           #{tag}

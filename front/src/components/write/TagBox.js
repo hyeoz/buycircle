@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { palette } from "../../lib/styles/palette";
 
 const TagBoxBlock = styled.div`
-  font-family: 'Gowun Dodum', sans-serif;
+  /* font-family: 'Gowun Dodum', sans-serif; */
   width: 100%;
   border-top: 1px solid ${palette.colors.gray[400]};
   padding-top: 2rem;
@@ -23,7 +23,7 @@ const TagForm = styled.form`
   border: 1px solid ${palette.colors.gray[900]}; 
   
   input , button {
-    font-family: 'Gowun Dodum', sans-serif;
+    /* font-family: 'Gowun Dodum', sans-serif; */
     outline: none;
     border: none;
     font-size: 1rem;
@@ -61,7 +61,7 @@ const Tag = styled.div`
 const TagListBlock = styled.div`
   display: flex;
   margin-top: 0.5rem;
-  font-family: 'Gowun Dodum', sans-serif;
+  /* font-family: 'Gowun Dodum', sans-serif; */
 `;
 
 const TagItem = React.memo(({tag, onRemove}) => (

@@ -37,7 +37,6 @@ const UserInfo = styled.div`
 const Header = ({user, onLogout}) => {
   // console.log(user);
   return (
-    <>
       <HeaderBlock>
         <Wrapper>
           <Link to="/" className="logo">BUYCIRCLE</Link>
@@ -54,7 +53,6 @@ const Header = ({user, onLogout}) => {
           )}
         </Wrapper>
       </HeaderBlock>
-    </>
   );
 };
 

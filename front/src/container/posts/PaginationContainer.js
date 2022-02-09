@@ -1,4 +1,5 @@
 import QueryString from "qs";
+// import { useState } from "react";
 import { useSelector } from "react-redux"
 import { useLocation, useParams } from "react-router";
 import Pagination from "../../components/posts/Pagination";
@@ -26,3 +27,4 @@ const PaginationContainer = () => {
 };
 
 export default PaginationContainer;
+

@@ -4,10 +4,12 @@ import { palette } from "../../lib/styles/palette";
 import AskRemoveModal from './AskRemoveModal';
 
 const PostActionButtonsBlock = styled.div`
-  display: flex;
+  display: fixed;
   justify-content: flex-end;
-  margin-bottom: 2rem;
-  margin-top: -1.5rem;
+  margin-top: -250px;
+  margin-right: 200px;
+  /* margin-top: -1.5rem; */
+
 `;
 
 const ActionButton = styled.button`
@@ -43,13 +45,13 @@ const PostActionButtons = ({onEdit, onRemove}) => {
   };
 
   return (
-    <>
+    <div>
       <PostActionButtonsBlock>
         <ActionButton onClick={onEdit}>수정</ActionButton>
         <ActionButton onClick={onRemoveClick}>삭제</ActionButton>
       </PostActionButtonsBlock>
       <AskRemoveModal visible={modal} onConfirm={onConfirm} onCancel={onCancel} />
-    </>
+    </div>
   );
 };
 

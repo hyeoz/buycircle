@@ -12,7 +12,7 @@ const EditorBlock = styled(Responsive)`
 `;
 
 const MethodInput = styled.input`
-  font-family: 'Gowun Dodum', sans-serif;
+  /* font-family: 'Gowun Dodum', sans-serif; */
   font-size: 1rem;
   outline: none;
   padding-bottom: 0.5rem;
@@ -24,8 +24,6 @@ const MethodInput = styled.input`
 const NameInput = styled(MethodInput)``;
 
 const PriceInput = styled(MethodInput)``;
-
-// 이미지는 quill 에디터에서 처리
 
 const QuillWrapper = styled.div`
   border-top: 1px solid ${palette.colors.gray[400]};
@@ -67,6 +65,7 @@ const Editor = ({method, name, price, body, onChangeField}) => {
       }
     });
   }, [onChangeField])
+
 
   const mounted = useRef(false);
   useEffect(() => {

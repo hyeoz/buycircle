@@ -10,7 +10,7 @@ const WriteActionButtonsBlock = styled.div`
 `;
 
 const StyledButton = styled(Button)`
-  font-family: 'Gowun Dodum', sans-serif;
+  /* font-family: 'Gowun Dodum', sans-serif; */
   height: 2.125rem;
   & + & {
     margin-left: 0.5rem;

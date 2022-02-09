@@ -17,12 +17,12 @@ const PostViewerContainer = () => {
 
   const {post, error, loading, user} = useSelector(
     ({post, loading, user}) => ({
-      post: post.post,
+      post: post.post?._doc,
       error: post.error,
       loading: loading['post/READ_POST'],
       user: user.user,
   }));
-  console.log(post, "post viewer container");
+  // console.log(post, "post viewer container"); // ? 로 해결
   // console.log(user._id,"post viewer container");
 
   useEffect(() => {
@@ -50,18 +50,20 @@ const PostViewerContainer = () => {
   };
 
   // 현재 유저가 해당 글의 작성자일때만 수정삭제 버튼 나타나도록
-  console.log("----------");
+  // console.log("에러발생지점");
   const ownPost = (user && user._id) === (post && post.user._id);
   // console.log(ownPost)
 
-  return <PostViewer 
-            post={post} 
-            loading={loading} 
-            error={error} 
-            actionButtons={ownPost && 
-              <PostActionButtons onEdit={onEdit} onRemove={onRemove} />
-            } 
-          />;
+  return (
+    <PostViewer 
+      post={post} 
+      loading={loading} 
+      error={error} 
+      actionButtons={ownPost && 
+        <PostActionButtons onEdit={onEdit} onRemove={onRemove} />
+      } 
+    />
+  );
 };
 
 export default PostViewerContainer;

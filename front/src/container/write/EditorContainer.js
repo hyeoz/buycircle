@@ -11,7 +11,7 @@ const EditorContainer = () => {
     price: write.price,
     body: write.body,
   }));
-  // console.log(method, name, price, body);
+  console.log(body);
   const onChangeField = useCallback((payload) => dispatch(changeField(payload)), [dispatch],);
   // 언마운트될 때 초기화
   useEffect(() => {

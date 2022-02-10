@@ -24,7 +24,7 @@ const PostHead = styled.div`
   text-align: center;
 
   .item {
-    margin: 27px;
+    margin: 23px;
   }
   .item h2{
     display: inline;
@@ -35,12 +35,11 @@ const PostHead = styled.div`
   }
 
   .sub-info {
-    margin-top: 181px;
+    margin-top: 176px;
   }
 
   .action-button {
-    text-align: right;
-    margin-top: 140px;
+    display: block;
   }
 `;
 

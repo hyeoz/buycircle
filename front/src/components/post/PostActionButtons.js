@@ -6,10 +6,9 @@ import AskRemoveModal from './AskRemoveModal';
 const PostActionButtonsBlock = styled.div`
   display: fixed;
   justify-content: flex-end;
-  margin-top: -250px;
+  margin-top: 180px;
   margin-right: 200px;
-  /* margin-top: -1.5rem; */
-
+  display: block;
 `;
 
 const ActionButton = styled.button`

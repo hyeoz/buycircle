@@ -3,7 +3,8 @@ import styled, { css } from "styled-components";
 import { palette } from "../../lib/styles/palette";
 
 const buttonStyle = css`
-  font-family: 'Patua One', cursive;
+  /* font-family: 'Patua One', cursive; */
+  font-family: 'Gowun Dodum', sans-serif;
   border: none;
   border-radius: 10px;
   font-weight: bold;

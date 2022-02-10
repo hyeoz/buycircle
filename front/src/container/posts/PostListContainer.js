@@ -9,30 +9,35 @@ const PostListContainer = () => {
   const dispatch = useDispatch();
   const {username} = useParams();
 
-  const {posts, error, loading, user} = useSelector(
-    ({posts, loading, user}) => ({
+  const {posts, error, loading} = useSelector(
+    ({posts, loading}) => ({
       posts: posts.posts,
       error: posts.error,
-      loading: loading['posts/LIST_POSTS'],
-      user: user.user,
+      loading: loading['posts.LIST_POSTS'],
     }),
   );
+  
+  // loading 이 왜 언디로 뜰까용
+  // console.log(loading, "post list container");
 
   /* {pathname, search} = useLocation()
   pathname : /@hyeoz
-  seach : tag=tag&page=1 */
+  seach : tag=tag&page=1 
+  ** scroll 로 구현
+  */
   const {search} = useLocation();
   // console.log(search, params);
   useEffect(() => {
-    const {tag, page} = qs.parse(search, {
+    const {tag} = qs.parse(search, {
       ignoreQueryPrefix: true,
     });
     // console.log(tag, page, username);
-    dispatch(listPosts({tag, username, page}))
+    dispatch(listPosts({tag, username}))
   }, [dispatch, search, username]);
 
   return (
-    <PostList loading={loading} error={error} posts={posts} showWriteButton={user} />
+    <PostList loading={loading} error={error} posts={posts} />
+    // <InfiniteScroll loading={loading} error={error} posts={posts} />
   );
 };
 

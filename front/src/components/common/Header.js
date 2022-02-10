@@ -18,12 +18,14 @@ const Wrapper = styled(Responsive)`
   justify-content: space-between;
 
   .logo {
-    font-family: 'Patua One', cursive;
+    /* font-family: 'Patua One', cursive; */
+    font-family: 'Gowun Dodum', sans-serif;
     font-size: 1.2rem;
   }
 
   .right {
-    font-family: 'Patua One', cursive;
+    /* font-family: 'Patua One', cursive; */
+    font-family: 'Gowun Dodum', sans-serif;
     font-size: 1rem;
     display: flex;
     align-items: center;

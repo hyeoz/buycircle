@@ -1,14 +1,14 @@
 // import Header from "../components/common/Header"
 import HeaderContainer from "../container/common/HeaderContainer";
 import PostListContainer from '../container/posts/PostListContainer';
-import PaginationContainer from '../container/posts/PaginationContainer';
+// import InfiniteScroll from "../components/posts/Scroll";
 
 const PostListPage = () => {
   return (
     <div>
       <HeaderContainer />
       <PostListContainer />
-      <PaginationContainer />
+      {/* <InfiniteScroll /> */}
     </div>
   );
 };

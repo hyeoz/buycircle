@@ -7,7 +7,7 @@ const [LIST_POSTS, LIST_POSTS_SUCCESS, LIST_POSTS_FAILURE] = createRequestAction
 
 export const listPosts = createAction(
   LIST_POSTS,
-  ({tag, username, page}) => ({tag, username, page}),
+  ({tag, username}) => ({tag, username}),
 );
 const listPostsSaga = createRequestSaga(LIST_POSTS, postsAPI.listPosts);
 export function* postsSaga() {
@@ -17,7 +17,6 @@ export function* postsSaga() {
 const initialState = {
   posts: null,
   error: null,
-  lastPage: 1,
 };
 
 const posts = handleActions(
@@ -25,7 +24,7 @@ const posts = handleActions(
     [LIST_POSTS_SUCCESS]: (state, {payload: posts, meta: res}) => ({
       ...state,
       posts,
-      lastPage: parseInt(res.headers['last-page'], 10) // 문자형인 페이지 숫자로 바꿔 페이지네이션
+      // lastPage: parseInt(res.headers['last-page'], 10) // 문자형인 페이지 숫자로 바꿔 페이지네이션
     }),
     [LIST_POSTS_FAILURE]: (state, {payload: error}) => ({
       ...state,

@@ -5,9 +5,8 @@ const client = axios.create();
 
 export const writePost = ({method, name, price, body, tags}) => client.post('/api/posts', {method, name, price, body, tags});
 export const readPost = (id) => client.get(`/api/posts/${id}`);
-export const listPosts = ({page, username, tag}) => {
+export const listPosts = ({username, tag}) => {
   const queryString = qs.stringify({
-    page,
     username, 
     tag,
   });
